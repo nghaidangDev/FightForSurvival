@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,11 +15,18 @@ public class PlayerController : MonoBehaviour
 {
     public PlayerState currentState;
     [SerializeField] private float speed;
+    [SerializeField] private float attackRadiousRange;
 
     private Animator anim;
     private Rigidbody2D rb;
 
+    private bool isAttacking;
+
     Vector2 moveDirection;
+    Vector2 lastMoveDirection;
+
+    public Transform attackCheck;
+    public LayerMask enemyLayer;
 
     private void Start()
     {
@@ -56,14 +63,19 @@ public class PlayerController : MonoBehaviour
 
     private void HandleAttacking()
     {
+        //Collider2D hit = Physics2D.OverlapCircle(attackCheck.position, attackRadiousRange, enemyLayer);
+        Debug.Log("Attacking");
 
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            currentState = PlayerState.Idle;
+        }
     }
 
     private void HandleMoving()
     {
         moveDirection.x = Input.GetAxisRaw("Horizontal");
         moveDirection.y = Input.GetAxisRaw("Vertical");
-
 
         if (moveDirection.x != 0 && moveDirection.y == 0)
         {
@@ -72,6 +84,11 @@ public class PlayerController : MonoBehaviour
         else if (moveDirection.x == 0 && moveDirection.y != 0)
         {
             rb.MovePosition(rb.position + moveDirection * speed * Time.deltaTime);
+        }
+
+        if (lastMoveDirection != Vector2.zero)
+        {
+            lastMoveDirection = moveDirection;
         }
 
 
@@ -88,17 +105,22 @@ public class PlayerController : MonoBehaviour
             currentState = PlayerState.Moving;
         }
 
-/*        if (Input.GetMouseButton(0))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             currentState = PlayerState.Attacking;
-        }*/
+        }
     }
 
     private void SetAnimation()
     {
-        anim.SetFloat("Horizontal", moveDirection.x);
-        anim.SetFloat("Vertical", moveDirection.y);
+        if (currentState == PlayerState.Moving)
+        {
+            anim.SetFloat("Horizontal", moveDirection.x);
+            anim.SetFloat("Vertical", moveDirection.y);
+        }
+
 
         anim.SetFloat("Speed", moveDirection.sqrMagnitude);
+        anim.SetBool("isAttack", currentState == PlayerState.Attacking);
     }
 }
