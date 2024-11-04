@@ -14,7 +14,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - Player
   - 
   - 
   - 
@@ -40,4 +40,16 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Ground
+    uniqueID: 664802203
+    locked: 0
+  - name: Colliders
+    uniqueID: 2529127585
+    locked: 0
+  - name: NPC
+    uniqueID: 321279137
+    locked: 0
+  - name: Player
+    uniqueID: 4226480633
     locked: 0

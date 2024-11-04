@@ -14,11 +14,13 @@ public enum PlayerState
 public class PlayerController : MonoBehaviour
 {
     public PlayerState currentState;
+
     [SerializeField] private float speed;
     [SerializeField] private float attackRadiousRange;
 
     private Animator anim;
     private Rigidbody2D rb;
+    private Health health;
 
     private bool isAttacking;
 
@@ -33,6 +35,7 @@ public class PlayerController : MonoBehaviour
         currentState = PlayerState.Idle;
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+        health = GetComponent<Health>();
     }
 
     private void Update()
@@ -58,7 +61,7 @@ public class PlayerController : MonoBehaviour
 
     private void HandleDying()
     {
-
+        //
     }
 
     private void HandleAttacking()
@@ -69,6 +72,8 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.Space))
         {
             currentState = PlayerState.Idle;
+
+            health.TakeDamage(20f);
         }
     }
 
@@ -122,5 +127,6 @@ public class PlayerController : MonoBehaviour
 
         anim.SetFloat("Speed", moveDirection.sqrMagnitude);
         anim.SetBool("isAttack", currentState == PlayerState.Attacking);
+        anim.SetBool("isDead", currentState == PlayerState.Dying);
     }
 }
