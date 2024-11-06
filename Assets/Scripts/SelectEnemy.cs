@@ -28,6 +28,7 @@ public class SelectEnemy : MonoBehaviour
         if (previousEnemy != null)
         {
             previousEnemy.HideIndicator();
+            previousEnemy.HideInfomationEnemy();
         }
 
         // Cập nhật enemy đã chọn và hiển thị chỉ báo mới
@@ -36,6 +37,7 @@ public class SelectEnemy : MonoBehaviour
         {
             previousEnemy = selectedEnemy.GetComponent<UISelectEnemy>();
             previousEnemy.ShowIndicator();
+            previousEnemy.ShowInfomationEnemy();
         }
     }
 
