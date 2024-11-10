@@ -17,6 +17,7 @@ public class UISelectEnemy : MonoBehaviour
 
     private void Start()
     {
+
         if (targetIndicator != null)
         {
             targetIndicator.SetActive(false);
@@ -56,6 +57,11 @@ public class UISelectEnemy : MonoBehaviour
         artEnemy.sprite = enemyBase.artEnemy;
         nameEnemy.text = enemyBase.name.ToString();
         damaged.text = enemyBase.attack.ToString();
+
+/*        if (healthSlider != null)
+        {
+            healthSlider.value = currentHP;
+        }*/
     }
 
     public void HideInfomationEnemy()
@@ -65,4 +71,5 @@ public class UISelectEnemy : MonoBehaviour
             infomation_Enemy.SetActive(false);
         }
     }
+
 }

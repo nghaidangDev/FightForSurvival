@@ -16,4 +16,4 @@ MonoBehaviour:
   artEnemy: {fileID: 1369242295, guid: e40c901e944506049abaa6c1783ae927, type: 3}
   speed: 5
   attack: 15
-  health: 80
+  health: 100

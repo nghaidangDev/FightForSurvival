@@ -4,21 +4,41 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    private PlayerController playerController;
-    public float startingHealth = 100f;
+    public float startingHealth;
+    public float currentHealth { get; private set; }
 
-    private void Start()
+
+
+    private void Awake()
     {
-        playerController = GetComponent<PlayerController>();
+        currentHealth = startingHealth;
     }
 
-    public void TakeDamage(float damaged)
+    public void TakeDamage(float _damaged)
     {
-        startingHealth -= damaged;
+        currentHealth = Mathf.Clamp(currentHealth - _damaged, 0, startingHealth);
 
-        if (startingHealth <= 0)
+        if (currentHealth > 0)
         {
-            playerController.currentState = PlayerState.Dying;
+            //
+        }
+        else if (currentHealth <= 0)
+        {
+            currentHealth = 0;
+
+            PlayerController playerController = GetComponent<PlayerController>();
+            if (playerController != null)
+            {
+                playerController.currentState = PlayerState.Dying;
+            }
+
+            Enemy enemy = GetComponent<Enemy>();
+            if (enemy != null)
+            {
+                enemy.currentState = EnemyStates.Dying;
+                enemy.enabled = false;
+                gameObject.SetActive(false);
+            }
         }
     }
 }

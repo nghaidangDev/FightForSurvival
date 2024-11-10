@@ -1,11 +1,18 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class SelectEnemy : MonoBehaviour
 {
     public Transform selectedEnemy; // Biến lưu enemy đã chọn
-    private UISelectEnemy previousEnemy; // Enemy trước đó
+    public UISelectEnemy previousEnemy; // Enemy trước đó
+
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Tab)) // Khi nhấn "Tab"
+        {
+            SelectNearestEnemy();
+        }
+    }
 
     // Phương thức tìm kiếm enemy gần nhất
     private void SelectNearestEnemy()
@@ -38,14 +45,6 @@ public class SelectEnemy : MonoBehaviour
             previousEnemy = selectedEnemy.GetComponent<UISelectEnemy>();
             previousEnemy.ShowIndicator();
             previousEnemy.ShowInfomationEnemy();
-        }
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Tab)) // Khi nhấn "Tab"
-        {
-            SelectNearestEnemy();
         }
     }
 }

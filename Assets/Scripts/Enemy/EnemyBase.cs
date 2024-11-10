@@ -10,7 +10,7 @@ public class EnemyBase : ScriptableObject
 
     public Sprite artEnemy;
 
-    public int speed;
-    public int attack;
-    public int health;
+    public float speed;
+    public float attack;
+    public float health;
 }
